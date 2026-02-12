@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Set Interface</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; color:Podcast #333; }
+        h1, h2, h3 { color: #2c3e50; }
+        pre { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 8px; overflow-x: auto; }
+        code { font-family: Consolas, monospace; }
+        ul, ol { line-height: 1.6; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Java Set Interface</h1>
+        
+        <h2>विवरण</h2>
+        <ul>
+            <li>Unique elements only (no duplicates)</li>
+            <li>Unordered (सिवाय LinkedHashSet और TreeSet के)</li>
+            <li>Collection interface का sub-interface</li>
+            <li>Iterable है → for-each loop और Iterator काम करता है</li>
+            <li>Index-based access नहीं होता → ListIterator नहीं</li>
+        </ul>
+
+        <h2>मुख्य Implementing Classes</h2>
+        <ol>
+            <li><strong>HashSet</strong> - Unordered, fastest, null allowed</li>
+            <li><strong>LinkedHashSet</strong> - Insertion order maintain करता है</li>
+            <li><strong>TreeSet</strong> - Elements को sorted रखता है (natural order या Comparator)</li>
+        </ol>
+
+        <h2>Iteration के तरीके (सभी Set classes में same)</h2>
+        
+        <pre><code>import java.util.*;
+
+Set&lt;String&gt; set = new HashSet&lt;&gt;();
+set.add("Apple");
+set.add("Banana");
+set.add("Cherry");
+
+// 1. Enhanced for-each loop (सबसे common)
+for (String s : set) {
+    System.out.println(s);
+}
+
+// 2. Iterator
+Iterator&lt;String&gt; it = set.iterator();
+while (it.hasNext()) {
+    System.out.println(it.next());
+}
+
+// 3. Java 8+ forEach method
+set.forEach(s -> System.out.println(s));
+        </code></pre>
+
+        <h3>नोट</h3>
+        <p>HashSet, LinkedHashSet और TreeSet में iteration के तरीके बिल्कुल एक समान हैं।<br>
+        Order: HashSet → random, LinkedHashSet → insertion order, TreeSet → sorted order.</p>
+    </div>
+</body>
+</html>
