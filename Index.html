@@ -3,65 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Java Map Interface</title>
+    <title>Java Collections Framework - Key Points</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; color: #333; }
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; color: #333; line-height: 1.6; }
         h1, h2, h3 { color: #2c3e50; }
-        pre { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 8px; overflow-x: auto; }
-        code { font-family: Consolas, monospace; }
-        ul { line-height: 1.6; }
-        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        ul { padding-left: 20px; }
+        .container { max-width: 1000px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+        section { margin-bottom: 40px; }
+        h2 { border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        h3 { color: #2980b9; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Java Map Interface</h1>
-        
-        <h2>विवरण</h2>
-        <ul>
-            <li>Key-Value pairs store करता है</li>
-            <li>Keys unique होते हैं, values duplicate हो सकते हैं</li>
-            <li>Collection interface का हिस्सा नहीं → सीधे Iterable नहीं</li>
-            <li>for-each loop सीधे Map पर नहीं चलता</li>
-        </ul>
+        <h1>Java Collections Framework</h1>
 
-        <h2>मुख्य Implementing Classes</h2>
-        <ol>
-            <li><strong>HashMap</strong> - Unordered, fastest, null key/value allowed</li>
-            <li><strong>LinkedHashMap</strong> - Insertion order maintain करता है</li>
-            <li><strong>TreeMap</strong> - Keys को sorted रखता है (natural order या Comparator)</li>
-        </ol>
+        <section>
+            <h2>List Interface</h2>
+            <ul>
+                <li>Ordered collection (insertion order maintained)</li>
+                <li>Allows duplicate elements</li>
+                <li>Provides positional access (index-based)</li>
+                <li>Supports ListIterator for bidirectional traversal</li>
+                <li>Extends Collection interface</li>
+            </ul>
 
-        <h2>Iteration के तरीके</h2>
-        
-        <pre><code>import java.util.*;
+            <h3>ArrayList</h3>
+            <ul>
+                <li>Resizable array implementation</li>
+                <li>Fast random access (O(1) get/set)</li>
+                <li>Slow insertions/deletions in middle</li>
+                <li>Not synchronized (not thread-safe)</li>
+                <li>Best for frequent read operations</li>
+            </ul>
 
-Map&lt;Integer, String&gt; map = new HashMap&lt;&gt;();
-map.put(1, "One");
-map.put(2, "Two");
-map.put(3, "Three");
+            <h3>LinkedList</h3>
+            <ul>
+                <li>D32 Doubly-linked list implementation</li>
+                <li>Fast insertions/deletions at ends</li>
+                <li>Implements both List and Queue/Dequeue</li>
+                <li>Slow random access (O(n))</li>
+                <li>High memory overhead per element</li>
+            </ul>
 
-// 1. Keys पर loop
-for (Integer key : map.keySet()) {
-    System.out.println(key + " -> " + map.get(key));
-}
+            <h3>Vector</h3>
+            <ul>
+                <li>Legacy synchronized ArrayList</li>
+                <li>Thread-safe but slower</li>
+                <li>Grows by 100% when full</li>
+                <li>All methods synchronized</li>
+                <li>Rarely used in modern code</li>
+            </ul>
 
-// 2. Values पर loop
-for (String value : map.values()) {
-    System.out.println(value);
-}
+            <h3>Stack</h3>
+            <ul>
+                <li>Extends Vector (LIFO)</li>
+                <li>Provides push, pop, peek</li>
+                <li>Synchronized (thread-safe)</li>
+                <li>Legacy class</li>
+                <li>Prefer Deque (ArrayDeque) instead</li>
+            </ul>
+        </section>
 
-// 3. EntrySet पर (सबसे recommended)
-for (Map.Entry&lt;Integer, String&gt; entry : map.entrySet()) {
-    System.out.println(entry.getKey() + " -> " + entry.getValue());
-}
+        <section>
+            <h2>Set Interface</h2>
+            <ul>
+                <li>Unordered collection of unique elements</li>
+                <li>No duplicates allowed</li>
+                <li>Does not maintain insertion order (except LinkedHashSet)</li>
+                <li>No index-based access</li>
+                <li>Extends Collection interface</li>
+            </ul>
 
-// 4. Java 8+ forEach method
-map.forEach((k, v) -> System.out.println(k + " -> " + v));
-        </code></pre>
+            <h3>HashSet</h3>
+            <ul>
+                <li>Hash table based implementation</li>
+                <li>No order guaranteed</li>
+                <li>Fast operations (O(1) average)</li>
+                <li>Allows one null element</li>
+                <li>Best for quick lookup</li>
+            </ul>
 
-        <h3>नोट</h3>
-        <p>HashMap, LinkedHashMap और TreeMap में ऊपर के सभी iteration तरीके एक समान काम करते हैं।</p>
+            <h3>LinkedHashSet</h3>
+            <ul>
+                <li>Maintains insertion order</li>
+                <li>Hash table + linked list</li>
+                <li>Slightly slower than HashSet</li>
+                <li>Allows one null element</li>
+                <li>Predictable iteration order</li>
+            </ul>
+
+            <h3>TreeSet</h3>
+            <ul>
+                <li>Sorted set (natural order or comparator)</li>
+                <li>Red-black tree implementation</li>
+                <li>No null allowed (after Java 7)</li>
+                <li>O(log n) for add/remove/contains</li>
+                <li>NavigableSet features (floor, ceiling etc.)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Queue Interface</h2>
+            <ul>
+                <li>Designed for holding elements prior to processing</li>
+                <li>Typically FIFO (first-in-first-out)</li>
+                <li>Provides offer, poll, peek operations</li>
+                <li>Extends Collection interface</li>
+                <li>Supports blocking operations in subinterfaces</li>
+            </ul>
+
+            <h3>PriorityQueue</h3>
+            <ul>
+                <li>Priority heap based</li>
+                <li>Elements ordered by natural order or comparator</li>
+                <li>Not FIFO - smallest/highest priority first</li>
+                <li>O(log n) insert/remove</li>
+                <li>Does not allow null</li>
+            </ul>
+
+            <h3>ArrayDeque</h3>
+            <ul>
+                <li>Resizable array as double-ended queue</li>
+                <li>Faster than LinkedList and Stack</li>
+                <li>No capacity restrictions</li>
+                <li>Not thread-safe</li>
+                <li>Recommended for Queue and Deque</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Map Interface</h2>
+            <ul>
+                <li>Stores key-value pairs</li>
+                <li>Unique keys, duplicate values allowed</li>
+                <li>Not part of Collection hierarchy</li>
+                <li>No Iterator directly (use keySet/values/entrySet)</li>
+                <li>Allows one null key (except TreeMap)</li>
+            </ul>
+
+            <h3>HashMap</h3>
+            <ul>
+                <li>Hash table based</li>
+                <li>No order guaranteed</li>
+                <li>Allows null key and values</li>
+                <li>Fast operations (O(1) average)</li>
+                <li>Not synchronized</li>
+            </ul>
+
+            <h3>LinkedHashMap</h3>
+            <ul>
+                <li>Maintains insertion order</li>
+                <li>Hash table + linked list</li>
+                <li>Slightly slower than HashMap</li>
+                <li>Allows null key/values</li>
+                <li>Useful for LRU cache</li>
+            </ul>
+
+            <h3>TreeMap</h3>
+            <ul>
+                <li>Red-black tree based</li>
+                <li>Keys sorted (natural or comparator)</li>
+                <li>No null key allowed</li>
+                <li>O(log n) operations</li>
+                <li>NavigableMap features</li>
+            </ul>
+
+            <h3>Hashtable</h3>
+ Synchronized legacy class</li>
+                <li>No null key or values</li>
+                <li>Thread-safe</li>
+                <li>Legacy (prefer ConcurrentHashMap)</li>
+                <li>All methods synchronized</li>
+            </ul>
+        </section>
     </div>
 </body>
 </html>
